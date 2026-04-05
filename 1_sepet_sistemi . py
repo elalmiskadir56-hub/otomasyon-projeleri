@@ -1,0 +1,41 @@
+class Urun:
+    def __init__(self, isim, fiyat, stok):
+        self.isim = isim
+        self.fiyat = fiyat
+        self.stok = stok
+
+class Sepet:
+    def __init__(self):
+        self.urunler = []
+        self.adetler = []
+
+    def urun_ekle(self, urun, adet):
+        if urun.stok >= adet:
+            if urun in self.urunler:
+                indeks = self.urunler.index(urun)
+                self.adetler[indeks] += adet
+            else:
+                self.urunler.append(urun)
+                self.adetler.append(adet)
+            urun.stok -= adet
+        else:
+            print("Yetersiz stok!")
+
+    def urun_sil(self, urun):
+        if urun in self.urunler:
+            indeks = self.urunler.index(urun)
+            urun.stok += self.adetler[indeks]
+            self.urunler.pop(indeks)
+            self.adetler.pop(indeks)
+
+    def toplam_tutar(self):
+        toplam = 0
+        for i in range(len(self.urunler)):
+            toplam += self.urunler[i].fiyat * self.adetler[i]
+        return toplam
+
+# Deneme kısmı
+u1 = Urun("Telefon", 10000, 5)
+s = Sepet()
+s.urun_ekle(u1, 2)
+print(s.toplam_tutar())
