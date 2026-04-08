@@ -1,0 +1,43 @@
+class BankaHesabi:
+    def __init__(self, isim, bakiye=0):
+        self.isim = isim
+        self.bakiye = bakiye
+        self.gecmis = []
+
+    def para_yatir(self, miktar):
+        if miktar > 0:
+            self.bakiye += miktar
+            self.gecmis.append(f"Yatırılan: {miktar} TL")
+            print(f"{miktar} TL yatırıldı. Güncel bakiye: {self.bakiye} TL")
+        else:
+            print("Hata: Negatif miktar yatırılamaz.")
+
+    def para_cek(self, miktar):
+        if miktar <= 0:
+            print("Hata: Geçersiz miktar.")
+        elif miktar > self.bakiye:
+            print(f"Hata: Yetersiz bakiye. Mevcut bakiye: {self.bakiye} TL")
+        else:
+            self.bakiye -= miktar
+            self.gecmis.append(f"Çekilen: {miktar} TL")
+            print(f"{miktar} TL çekildi. Güncel bakiye: {self.bakiye} TL")
+
+    def hareketleri_goster(self):
+        print(f"\n--- {self.isim} Hesap Hareketleri ---")
+        for islem in self.gecmis:
+            print(islem)
+        print(f"Toplam Bakiye: {self.bakiye} TL\n")
+
+    
+    def toplu_islem(self, *miktarlar):
+        for miktar in miktarlar:
+            if miktar > 0:
+                self.para_yatir(miktar)
+            else:
+                
+
+hesap = BankaHesabi("Ahmet Yılmaz", 1000)
+hesap.para_yatir(500)
+hesap.para_cek(200)
+hesap.toplu_islem(100, -300, 50) # 100 yatır, 300 çek, 50 yatır
+hesap.hareketleri_goster()
