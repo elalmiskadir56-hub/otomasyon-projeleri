@@ -1,0 +1,13 @@
+class File:
+    def open(self): pass
+
+class ImageFile(File):
+    def open(self): print("Displaying image...")
+
+class TextFile(File):
+    def open(self): print("Reading text...")
+
+# Polymorphic loop / Çok biçimli döngü
+files = [ImageFile(), TextFile()]
+for f in files:
+    f.open()
