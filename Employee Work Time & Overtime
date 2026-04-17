@@ -1,0 +1,16 @@
+def calculate_minutes(time_str):
+    h, m = map(int, time_str.split(':'))
+    return h * 60 + m
+
+records = ["Ali,09:00,18:00", "Ayşe,08:45,17:30", "Mehmet,10:00,19:15"]
+results = {}
+
+for rec in records:
+    name, start, end = rec.split(',')
+    duration = calculate_minutes(end) - calculate_minutes(start)
+    results[name] = results.get(name, 0) + duration
+
+    
+for name, total in sorted(results.items(), key=lambda x: x[1], reverse=True):
+    overtime = max(0, total - 480)
+    print(f"{name} -> Total: {total} min | Overtime: {overtime} min")
