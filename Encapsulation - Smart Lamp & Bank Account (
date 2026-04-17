@@ -1,0 +1,9 @@
+class SmartLamp:
+    def __init__(self):
+        self.__brightness = 0  # Private attribute
+
+    def set_brightness(self, value):
+        if 0 <= value <= 100:
+            self.__brightness = value
+        else:
+            print("Invalid range!")
